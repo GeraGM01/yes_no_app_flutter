@@ -62,10 +62,13 @@ class _ChatView extends StatelessWidget {
               ),
             ),
             //Caja de texto de mensaje
-            MessageFieldBox(),
+            MessageFieldBox(
+              onValue: (value) => chatProvider.sendMessage(value),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
