@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:yes_no_app/domain/entities/message.dart';
+import 'package:yes_no_app/presentation/providers/chat_provider.dart';
 import 'package:yes_no_app/presentation/screens/chat/her_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/chat/my_message_bubble.dart';
 import 'package:yes_no_app/presentation/widgets/shared/message_field_box.dart';
@@ -29,8 +32,11 @@ class ChatScreen extends StatelessWidget {
 }
 
 class _ChatView extends StatelessWidget {
+  // Es un StalessWidget por que el widget no maneja el estado, quien lo maneja sera el provider
   @override
   Widget build(BuildContext context) {
+    final chatProvider = context.watch<ChatProvider>(); // definicion del provider
+
     return SafeArea(
       // Area segura para que el contenido no se vaya a los botones etc
       child: Padding(
@@ -44,12 +50,13 @@ class _ChatView extends StatelessWidget {
               //Expanden hace que se estire y ocupe todo el espacio sobrante/disponible de la pantalla sin aplastar a elementos vecinos
               child: ListView.builder(
                 //Dibujado bajo demanda de los elementos que seran visibles en pantalla en ese momento
-                itemCount: 100, // cuantos elementos tengo o se van a mostrar
+                itemCount: chatProvider.messageList.length, // cuantos elementos tengo o se van a mostrar
                 itemBuilder: (context, index) {
                   // construye y renderiza los elementos
-                  return (index % 2 == 0)
-                      ? const HerMessageBubble()
-                      : MyMessageBubble(); // pares para sacar espacio si es mio o de ella
+                  final message = chatProvider.messageList[index];// aqui se va a saber de quien es el mensaje
+                  return (message.fromWho == FromWho.hers)
+                    ? HerMessageBubble()
+                    : MyMessageBubble( message : message );
                   //return const MyMessageBubble(); // indice dice cual es el elemento que se esta renderizando en el momento
                 },
               ),
