@@ -11,10 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return MultiProvider(  // Creacion del provder, es a nivel global, es decir cada uno de los widgets hijos tiene acceso de forma directa a poder consultar la info de este provider
-      providers: [ChangeNotifierProvider(create: (_) => ChatProvider())],
-
     return MultiProvider(  // creacion del proveedor de provider a nivel global, todos los widgets hijos lo conocen
       providers: [ // Lista de providers
       ChangeNotifierProvider(create: (_) => ChatProvider())

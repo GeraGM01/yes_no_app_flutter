@@ -49,6 +49,7 @@ class _ChatView extends StatelessWidget {
             Expanded(
               //Expanden hace que se estire y ocupe todo el espacio sobrante/disponible de la pantalla sin aplastar a elementos vecinos
               child: ListView.builder(
+                controller: chatProvider.chatScrollController,
                 //Dibujado bajo demanda de los elementos que seran visibles en pantalla en ese momento
                 itemCount: chatProvider.messageList.length, // cuantos elementos tengo o se van a mostrar
                 itemBuilder: (context, index) {
