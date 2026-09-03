@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/domain/entities/message.dart';
 
 class HerMessageBubble extends StatelessWidget {
-  const HerMessageBubble({super.key});
+    final Message message; // El argumento que vas a recibir
+    const HerMessageBubble({required this.message, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class HerMessageBubble extends StatelessWidget {
             //padding para el texto, no se vea muy junto
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
-              'In consectetur proident ad minim aute officia in irure. Id veniam cillum enim consequat amet veniam do labore non aliquip do dolore. Velit do adipisicing ex ad est minim laborum.',
+              message.text,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -34,7 +36,7 @@ class HerMessageBubble extends StatelessWidget {
           height: 5,
         ), // Sepaacion entre cada elemento de 10 para que se vea espaciado entre cada renglon
 
-        _ImageBubble(),
+        _ImageBubble(imageUrl: message.imageUrl),
 
         SizedBox(
           height: 10,
@@ -46,6 +48,9 @@ class HerMessageBubble extends StatelessWidget {
 }
 
 class _ImageBubble extends StatelessWidget {
+  final String? imageUrl; // Recibimos la URL
+
+  const _ImageBubble({this.imageUrl});
   @override
   Widget build(BuildContext context) {
     // Media query para ajustar a tamaño de pantalla del dispitisivo que lo esta corriendo
@@ -57,7 +62,7 @@ class _ImageBubble extends StatelessWidget {
       // este widget permite crear los bordes redondeados de la imagen
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        'https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmR1eGNtd3F1Z255Z3N2Z2hmdnh2b2wwNmVnYTl2MjVyNHZ3MG5raCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HmUijcp0bmGOlhStBA/giphy.gif',
+        imageUrl!,
         width: size.width * 0.5,
         height: 150,
         fit: BoxFit.cover,

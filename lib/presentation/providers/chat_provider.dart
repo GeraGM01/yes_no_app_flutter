@@ -4,8 +4,7 @@ import 'package:yes_no_app/domain/entities/message.dart';
 
 // El ChangeNotifier lo que hara es notificar cuando hay cambios para redibujar
 class ChatProvider extends ChangeNotifier {
-  final ScrollController chatScrollController =
-      ScrollController(); //permite tener el control de un unico scroll
+  final ScrollController chatScrollController = ScrollController(); //permite tener el control de un unico scroll
   final GetYesNoAnswer getYesNoAnswer = GetYesNoAnswer();
 
   List<Message> messageList = [
@@ -31,11 +30,17 @@ class ChatProvider extends ChangeNotifier {
   }
 
   Future<void> herReply() async {
-    final herMessage = await getYesNoAnswer
-        .getAnswer(); // este getReply se va a lanzar cuando se detecte que el mensaje es una pregunta
-    messageList.add(herMessage);
-    notifyListeners();
+    final herMessage = await getYesNoAnswer.getAnswer(); // este getReply se va a lanzar cuando se detecte que el mensaje es una pregunta
 
+    final Message mensajeElla = Message(
+      text: herMessage.text,
+      fromWho: FromWho.hers,
+      imageUrl: herMessage.imageUrl, //¡Aquí pasamos la URL de la imagen al mensaje
+    );
+    
+    messageList.add(mensajeElla);
+    
+    notifyListeners();
     moveScrollToBotton();
   }
 

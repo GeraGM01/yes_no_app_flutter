@@ -1,4 +1,3 @@
-
 enum FromWho { me, hers }
 
 class Message {
@@ -6,10 +5,8 @@ class Message {
   final String? imageUrl;
   final FromWho fromWho;
 
-  Message({
-  required this.text, 
-  this.imageUrl, 
-  required this.fromWho
-  });
-  
+  final String? answer;
+  final bool? forced;
+
+  Message({required this.text, this.imageUrl, required this.fromWho, this.answer, this.forced});
 }
